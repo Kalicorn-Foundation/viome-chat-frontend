@@ -36,3 +36,5 @@ Thumbs.db
 # Miscellaneous
 *.bak
 *.tmp
+
+*.exe
