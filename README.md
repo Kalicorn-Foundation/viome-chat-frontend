@@ -35,6 +35,38 @@ pip install -r requirements.txt
 npm install
 ```
 
+### Pre-commit Hooks Setup
+
+To ensure code quality and consistency, this project uses [pre-commit](https://pre-commit.com/) hooks for linting and formatting (with black and flake8).
+
+### Setting up pre-commit
+
+1. **Install pre-commit** (if not already installed):
+
+   ```bash
+   pip install pre-commit
+   ```
+
+   If the above does not work, try:
+
+   ```bash
+   pre-commit install
+   ```
+
+2. **Install the git hooks** (run this in your project root):
+
+   ```bash
+   pre-commit install
+   ```
+
+   This will ensure that pre-commit hooks run automatically before each commit.
+
+3. **(Optional) Run pre-commit on all files:**
+
+   ```bash
+   pre-commit run --all-files
+   ```
+
 ### Build the Product
 
 ```bash
