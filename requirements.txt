@@ -3,3 +3,4 @@ pynput
 pytz
 pycryptodome 
 pyinstaller
+pytest
