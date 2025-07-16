@@ -15,25 +15,55 @@ from Crypto.Util.Padding import pad, unpad
 import subprocess
 import os
 
-INPUT_METHOD_KOREAN = 'K'
-INPUT_METHOD_ENGLISH = 'E'
+INPUT_METHOD_KOREAN = "K"
+INPUT_METHOD_ENGLISH = "E"
 
 MAP_KEYBOARD = {
-    'r': 'ㄱ', 'R': 'ㄲ', 's': 'ㄴ', 'e': 'ㄷ', 'E': 'ㄸ',
-    'f': 'ㄹ', 'a': 'ㅁ', 'q': 'ㅂ', 'Q': 'ㅃ', 't': 'ㅅ',
-    'T': 'ㅆ', 'd': 'ㅇ', 'w': 'ㅈ', 'W': 'ㅉ', 'c': 'ㅊ',
-    'z': 'ㅋ', 'x': 'ㅌ', 'v': 'ㅍ', 'g': 'ㅎ',
-    'k': 'ㅏ', 'o': 'ㅐ', 'i': 'ㅑ', 'O': 'ㅒ',
-    'j': 'ㅓ', 'p': 'ㅔ', 'u': 'ㅕ', 'P': 'ㅖ',
-    'h': 'ㅗ', 'y': 'ㅛ', 'n': 'ㅜ', 'b': 'ㅠ',
-    'm': 'ㅡ', 'l': 'ㅣ',
+    "r": "ㄱ",
+    "R": "ㄲ",
+    "s": "ㄴ",
+    "e": "ㄷ",
+    "E": "ㄸ",
+    "f": "ㄹ",
+    "a": "ㅁ",
+    "q": "ㅂ",
+    "Q": "ㅃ",
+    "t": "ㅅ",
+    "T": "ㅆ",
+    "d": "ㅇ",
+    "w": "ㅈ",
+    "W": "ㅉ",
+    "c": "ㅊ",
+    "z": "ㅋ",
+    "x": "ㅌ",
+    "v": "ㅍ",
+    "g": "ㅎ",
+    "k": "ㅏ",
+    "o": "ㅐ",
+    "i": "ㅑ",
+    "O": "ㅒ",
+    "j": "ㅓ",
+    "p": "ㅔ",
+    "u": "ㅕ",
+    "P": "ㅖ",
+    "h": "ㅗ",
+    "y": "ㅛ",
+    "n": "ㅜ",
+    "b": "ㅠ",
+    "m": "ㅡ",
+    "l": "ㅣ",
 }
+
 
 def compose_hg_with_node(jamo_string):
     try:
         result = subprocess.run(
-            ['node', 'compose_hg.js', jamo_string], creationflags=subprocess.CREATE_NO_WINDOW,
-            capture_output=True, text=True, timeout=5, encoding='utf-8'
+            ["node", "compose_hg.js", jamo_string],
+            creationflags=subprocess.CREATE_NO_WINDOW,
+            capture_output=True,
+            text=True,
+            timeout=5,
+            encoding="utf-8",
         )
         if result.returncode == 0:
             return result.stdout.strip()
@@ -41,6 +71,7 @@ def compose_hg_with_node(jamo_string):
             return jamo_string  # fallback to original string
     except Exception:
         return jamo_string  # fallback to original string
+
 
 class TransparentWindow:
     def __init__(self, root):
@@ -53,7 +84,7 @@ class TransparentWindow:
 
         self.key = self.generate_key()
         self.uri = self.load_config_data()["backend"]
-        
+
         # Initialize pynput listener
         self.listener = None
 
@@ -99,7 +130,7 @@ class TransparentWindow:
     def setup_window(self):
         # Set icon BEFORE overrideredirect to ensure it shows in taskbar
         self.set_normal_icon()
-        
+
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
         self.transparency = 0.01
@@ -143,7 +174,7 @@ class TransparentWindow:
             # Try to force a window update to refresh the icon
             self.root.update()
             # Additional method to ensure icon change is applied
-            if hasattr(self.root, 'wm_iconbitmap'):
+            if hasattr(self.root, "wm_iconbitmap"):
                 self.root.wm_iconbitmap(icon_path)
         except Exception as e:
             print(f"Could not force icon update: {e}")
@@ -156,13 +187,15 @@ class TransparentWindow:
 
     def setup_hotkeys(self):
         # Create a keyboard listener with pynput
-        self.listener = keyboard.GlobalHotKeys({
-            '<ctrl>+<shift>+z': self.toggle_visibility,
-            '<ctrl>+<alt>+=': self.up_transparency,
-            '<ctrl>+<alt>+-': self.down_transparency,
-            '<ctrl>+<shift>+r': self.mark_as_read,
-            '<alt_gr>': self.toggle_input_method,  # Right Alt key to toggle input methods
-        })
+        self.listener = keyboard.GlobalHotKeys(
+            {
+                "<ctrl>+<shift>+z": self.toggle_visibility,
+                "<ctrl>+<alt>+=": self.up_transparency,
+                "<ctrl>+<alt>+-": self.down_transparency,
+                "<ctrl>+<shift>+r": self.mark_as_read,
+                "<alt_gr>": self.toggle_input_method,  # Right Alt key to toggle input methods
+            }
+        )
         self.listener.start()
 
     def toggle_input_method(self):
@@ -198,20 +231,21 @@ class TransparentWindow:
         self.text_display = tk.Text(self.frame, wrap=tk.WORD, height=6, width=50)
         self.text_display.pack(fill=tk.BOTH, expand=True)
         self.text_display.config(state=tk.DISABLED)
-        
+
         # Read button (initially disabled)
-        self.read_button = tk.Button(self.frame, text="✓", width=2, command=self.mark_as_read, 
-                                    state=tk.DISABLED)
+        self.read_button = tk.Button(
+            self.frame, text="✓", width=2, command=self.mark_as_read, state=tk.DISABLED
+        )
         self.read_button.pack(side=tk.RIGHT, padx=0, pady=0)
-        
+
         # Input area with method indicator
         input_frame = ttk.Frame(self.frame)
         input_frame.pack(fill=tk.X, side=tk.BOTTOM)
-        
+
         # Input method label
         self.input_method_label = tk.Label(input_frame, text=self.input_method, width=2)
         self.input_method_label.pack(side=tk.LEFT, padx=(0, 5))
-        
+
         # Entry input
         self.entry_input = tk.Entry(input_frame, width=47)
         self.entry_input.pack(fill=tk.X, side=tk.LEFT)
@@ -278,10 +312,15 @@ class TransparentWindow:
                 converted_text = self.convert_input(text)
             else:
                 converted_text = text
-            
+
             # Send converted text to websocket
             config = self.load_config_data()
-            data = {"code": "message", "userId": config["userId"], "text": converted_text, "key": self.key}
+            data = {
+                "code": "message",
+                "userId": config["userId"],
+                "text": converted_text,
+                "key": self.key,
+            }
             self.entry_input.delete(0, tk.END)
             if self.websocket:
                 asyncio.run_coroutine_threadsafe(
@@ -310,12 +349,17 @@ class TransparentWindow:
                 await asyncio.sleep(5)  # Wait before retrying
 
     def display_message(self, message):
-        print(message.split(" ")[1][:3], self.load_config_data()["userId"].startswith(message.split(" ")[1][:3]))
+        print(
+            message.split(" ")[1][:3],
+            self.load_config_data()["userId"].startswith(message.split(" ")[1][:3]),
+        )
         self.insert_text(f"{message}\n")
         self.text_display.see(tk.END)
-        
+
         # Set notification icon and enable read button for new messages
-        if not self.has_unread_messages and not self.load_config_data()["userId"].startswith(message.split(" ")[1][:3]):
+        if not self.has_unread_messages and not self.load_config_data()[
+            "userId"
+        ].startswith(message.split(" ")[1][:3]):
             self.has_unread_messages = True
             # Change icon immediately for new messages
             self.set_notification_icon()
@@ -355,20 +399,21 @@ class TransparentWindow:
             else:
                 jamos.append(ch)  # Keep non-mapped characters like space, punctuation
         try:
-            result = compose_hg_with_node(''.join(jamos))
+            result = compose_hg_with_node("".join(jamos))
         except Exception:
-            result = ''.join(jamos)  # fallback in case compose fails
+            result = "".join(jamos)  # fallback in case compose fails
         return result
+
 
 def main():
     root = tk.Tk()
     app = TransparentWindow(root)
-    
+
     # Set up cleanup when the window is closed
     def on_closing():
         app.cleanup()
         root.destroy()
-    
+
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
