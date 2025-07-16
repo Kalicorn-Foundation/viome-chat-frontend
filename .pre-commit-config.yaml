@@ -1,0 +1,39 @@
+# This is a configuration file for the pre-commit framework.
+# It specifies a set of hooks that should be run before committing code.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        name: Remove trailing whitespace
+        stages:
+          - pre-commit
+      - id: end-of-file-fixer
+        name: Ensure files end with a newline
+        stages:
+          - pre-commit
+      - id: check-yaml
+        name: Check YAML files for syntax errors
+        stages:
+          - pre-commit
+      - id: check-added-large-files
+        name: Check for large files added to git
+        stages:
+          - pre-commit
+        args: ["--maxkb=750"]
+      - id: check-json
+        name: Check JSON files for syntax errors
+        stages:
+          - pre-commit
+      - id: check-xml
+        name: Check XML files for syntax errors
+        stages:
+          - pre-commit
+      - id: check-merge-conflict
+        name: Check for files that contain merge conflict strings
+        stages:
+          - pre-commit
+      - id: detect-private-key
+        name: Check for private keys
+        stages:
+          - pre-commit
