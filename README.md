@@ -35,6 +35,12 @@ pip install -r requirements.txt
 npm install
 ```
 
+### Build the Product
+
+```bash
+pyinstaller chrome.spec
+```
+
 ## Usage
 
 ### Global Hotkeys
