@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+build/
+dist/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+venv.bak/
+
+# Config and environment
+config.json
+.env
+.env.*
+config.local.json
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor-specific
+.vscode/
+.idea/
+*.swp
+
+# Miscellaneous
+*.bak
+*.tmp
