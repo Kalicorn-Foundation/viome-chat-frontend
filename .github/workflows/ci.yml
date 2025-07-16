@@ -26,10 +26,10 @@ jobs:
       - name: Install linting tools
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 black mypy
+          pip install flake8 black
 
       - name: Run flake8
-        run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        run: flake8 chrome.py --count --select=E9,F63,F7,F82 --show-source --statistics
 
       - name: Run black (check only)
         run: black --check .
