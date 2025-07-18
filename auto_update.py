@@ -5,14 +5,15 @@ import hashlib
 from version import __version__
 from packaging import version
 
+
 def check_for_updates():
     try:
         response = requests.get(
             "https://api.github.com/repos/Kalicorn-Foundation/viome-chat-frontend/releases/latest",
-            timeout=5
+            timeout=5,
         )
         response.raise_for_status()
-        latest_version = response.json()["tag_name"].lstrip('v')
+        latest_version = response.json()["tag_name"].lstrip("v")
         assets = response.json()["assets"]
         if version.parse(latest_version) > version.parse(__version__):
             print(f"New version available: {latest_version}")
