@@ -14,6 +14,7 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 import subprocess
 import os
+import auto_update
 
 INPUT_METHOD_KOREAN = "K"
 INPUT_METHOD_ENGLISH = "E"
@@ -406,6 +407,7 @@ class TransparentWindow:
 
 
 def main():
+    auto_update.check_for_updates()
     root = tk.Tk()
     app = TransparentWindow(root)
 

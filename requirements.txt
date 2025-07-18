@@ -4,3 +4,5 @@ pytz
 pycryptodome
 pyinstaller
 pytest
+requests
+packaging
