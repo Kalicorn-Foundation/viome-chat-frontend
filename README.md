@@ -109,3 +109,29 @@ If hotkeys stop working:
 ### Permission Issues (Windows)
 
 On Windows, you may need to run the application as administrator for global hotkeys to work properly.
+
+## Versioning, Auto-Update, and Releases
+
+### Version Tracking
+
+- The application version is tracked in `version.py`.
+- Windows executable version info is set via `version_info.txt` (used by PyInstaller).
+
+### Auto-Update
+
+- On startup, the app checks for new releases on GitHub.
+- If a new version is available, it downloads and replaces the executable, then restarts automatically.
+- Update logic is in `auto_update.py`.
+
+### Release Workflow
+
+- Tag a new release (e.g., `v0.1.0`) and push to GitHub.
+- GitHub Actions will build and upload the new executable to the release.
+- The app will auto-update for users on next launch.
+
+### Building
+
+- To build the executable with version info:
+  ```bash
+  pyinstaller --onefile --name chrome.exe --version-file version_info.txt chrome.py
+  ```
