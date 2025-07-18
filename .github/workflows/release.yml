@@ -21,10 +21,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller
       - name: Set git commit in version.py
+        shell: pwsh
         run: |
-          git_commit=$(git rev-parse --short HEAD)
-          python -c "lines = open('version.py').readlines(); [print(line if not line.startswith('__git_commit__') else f'__git_commit__ = \"{git_commit}\"') for line in lines]" > version.py.tmp
-          mv version.py.tmp version.py
+          $git_commit = git rev-parse --short HEAD
+          (Get-Content version.py) -replace '__git_commit__ = ".*"', "__git_commit__ = `"$git_commit`"" | Set-Content version.py
       - name: Build executable
         run: |
           pyinstaller --onefile --name chrome.exe --version-file version_info.txt chrome.py
