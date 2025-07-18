@@ -12,18 +12,18 @@ VSVersionInfo(
     date=(0, 0)
   ),
   kids=[
-    StringFileInfo(
-      [
-      StringTable(
-        '040904b0',
-        [StringStruct('CompanyName', 'Kalicorn Foundation'),
+    StringFileInfo([
+      StringTable('040904b0', [
+        StringStruct('CompanyName', 'Kalicorn Foundation'),
         StringStruct('FileDescription', 'Viome Chat App'),
         StringStruct('FileVersion', '0.1.0'),
         StringStruct('InternalName', 'chrome'),
         StringStruct('LegalCopyright', 'Copyright © 2024'),
         StringStruct('OriginalFilename', 'chrome.exe'),
         StringStruct('ProductName', 'Viome Chat App'),
-        StringStruct('ProductVersion', '0.1.0')])
-      ]),
+        StringStruct('ProductVersion', '0.1.0')
+      ])
+    ]),
     VarFileInfo([VarStruct('Translation', [1033, 1200])])
-]
+  ]
+)
